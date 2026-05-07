@@ -1,0 +1,7 @@
+question,option_a,option_b,option_c,option_d,correct_answer,subject
+Which tag is used to create a hyperlink in HTML?,<a>,<link>,<href>,<url>,A,HTML
+What does CSS stand for?,Cascading Style Sheets,Creative Style Sheets,Cascading Simple Sheets,Computer Style Sheets,A,CSS
+Which of the following is not a JavaScript data type?,Integer,String,Boolean,Undefined,A,JavaScript
+What is the output of SELECT * FROM users?,Returns all rows and columns,Returns only columns,Deletes all rows,Returns row count,A,SQL
+Which data structure uses LIFO?,Queue,Stack,Array,Linked List,B,DSA
+What does ML stand for in DSML?,Machine Logic,Machine Learning,Model Learning,Meta Learning,B,DSML
