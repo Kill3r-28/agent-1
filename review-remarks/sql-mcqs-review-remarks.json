@@ -3,24 +3,24 @@
     "question_id": "c631a78dd51d4e11be6d0d050a2cfb31",
     "question": "What command is used to display the structure of an existing table in SQL?",
     "content_type": "TEXT",
-    "issue": "EXAMPLE 2: Missing Strong Distractor \u2014 The correct answer is database-specific (PRAGMA is SQLite-only). The options include DESCRIBE and SHOW COLUMNS, which are valid in other SQL dialects (MySQL, PostgreSQL). However, the question asks for 'the' command as if there is a universal answer, when in fact different SQL databases use different commands. This makes the question ambiguous and potentially unfair. Additionally, SELECT * FROM table_name is too obviously wrong and not a plausible distractor. A strong distractor would be another dialect-specific command like EXPLAIN or a command that sounds similar but is incorrect.",
-    "fix": "Either: (A) Clarify the question to specify the SQL dialect (e.g., 'In SQLite, what command...?'), OR (B) Reframe the question to acknowledge multiple correct answers and ask which one works in a specific context. Also replace 'SELECT * FROM table_name' (too weak) with a stronger distractor like 'EXPLAIN table_name' or 'INFORMATION_SCHEMA' reference, which students might confuse with structure inspection.",
-    "updated_question": "In SQLite, which command is used to display the structure of an existing table?",
+    "issue": "EXAMPLE 2: Missing Strong Distractors and Incorrect Correct Answer. The marked correct answer PRAGMA TABLE_INFO(table_name) is SQLite-specific, not standard SQL. DESCRIBE is more universally supported across MySQL, PostgreSQL, and Oracle. Additionally, the options lack strong distractors \u2014 they don't include plausible but incorrect alternatives that require SQL knowledge to distinguish from the correct answer.",
+    "fix": "The correct answer should be DESCRIBE table_name, which is widely supported across major SQL databases. Replace PRAGMA TABLE_INFO (too specific to SQLite) with a stronger distractor like SHOW TABLE STRUCTURE or EXPLAIN table_name, which are plausible but incorrect alternatives. This forces students to know which command actually displays table structure across standard SQL implementations.",
+    "updated_question": "What command is used to display the structure of an existing table in SQL?",
     "updated_options": [
       {
         "option_content": "DESCRIBE table_name;",
-        "is_correct_option": 0
-      },
-      {
-        "option_content": "PRAGMA table_info(table_name);",
         "is_correct_option": 1
       },
       {
-        "option_content": "EXPLAIN QUERY PLAN FROM table_name;",
+        "option_content": "SHOW TABLE STRUCTURE table_name;",
         "is_correct_option": 0
       },
       {
-        "option_content": "SHOW COLUMNS FROM table_name;",
+        "option_content": "SELECT * FROM table_name;",
+        "is_correct_option": 0
+      },
+      {
+        "option_content": "EXPLAIN table_name;",
         "is_correct_option": 0
       }
     ]
@@ -29,24 +29,50 @@
     "question_id": "c5c0d272851047d9adaa522c46a41796",
     "question": "Which SQL query will help to find the common products sold in both the store_a and store_b tables?",
     "content_type": "TEXT",
-    "issue": "EXAMPLE 1: Markdown Escape Issue + Weak Distractor. In TEXT content type, underscores in table names (store_a, store_b) do not need escaping, but the options contain code snippets with underscores that should be consistent. More critically, the second distractor option uses a != (not equal) operator in the JOIN condition, which is not a plausible way to find common products \u2014 a student could eliminate this without SQL knowledge because the logic is obviously backwards. The third option uses SELECT * in a subquery with an IN clause, which is syntactically incorrect (SELECT * returns multiple columns; IN expects a single column). Replace this with a more plausible distractor like UNION (which combines but doesn't filter duplicates) to require actual SQL knowledge to distinguish.",
-    "fix": "Keep the question as is. Replace option 2 (JOIN with !=) with a stronger distractor that uses a valid SQL construct but produces the wrong result, such as a UNION query (which combines all rows instead of finding common ones). This requires students to understand the semantic difference between UNION (combine) and INTERSECT (common). Keep UNION in option 4 and move a stronger distractor into option 2, such as a FULL OUTER JOIN or LEFT JOIN that would include non-common products.",
+    "issue": "EXAMPLE 8: Weak Distractors \u2014 Easily Eliminated Without SQL Knowledge. Option B uses != (not equal) when the intent is to find common products, making it obviously wrong. Option C uses SELECT * in a subquery with IN, which is syntactically invalid. Option D uses UNION instead of INTERSECT, which is a weak distractor because UNION is clearly for combining results, not finding common values. These distractors don't require actual SQL knowledge to eliminate.",
+    "fix": "Replace weak distractors with options that require genuine SQL knowledge. Option B should use = instead of != to make it superficially plausible (JOIN instead of INTERSECT). Option C should use a valid syntax like WHERE product_id IN (SELECT product_id FROM store_b). Option D should remain UNION but be described as combining all products instead of finding common ones, which is subtly different and requires understanding UNION vs INTERSECT behavior.",
     "updated_question": "Which SQL query will help to find the common products sold in both the store_a and store_b tables?",
     "updated_options": [
       {
-        "option_content": "SELECT * FROM store_a INTERSECT SELECT * FROM store_b;",
+        "option_content": "```sql\nSELECT * FROM store_a \nINTERSECT \nSELECT * FROM store_b;\n```",
         "is_correct_option": 1
       },
       {
-        "option_content": "SELECT DISTINCT store_a.* FROM store_a LEFT JOIN store_b ON store_a.product_id = store_b.product_id;",
+        "option_content": "```sql\nSELECT * FROM store_a \nJOIN store_b \nON store_a.product_id = store_b.product_id;\n```",
         "is_correct_option": 0
       },
       {
-        "option_content": "SELECT * FROM store_a WHERE product_id IN (SELECT product_id FROM store_b);",
+        "option_content": "```sql\nSELECT * FROM store_a \nWHERE product_id IN (SELECT product_id FROM store_b);\n```",
         "is_correct_option": 0
       },
       {
-        "option_content": "SELECT * FROM store_a UNION SELECT * FROM store_b;",
+        "option_content": "```sql\nSELECT * FROM store_a \nUNION \nSELECT * FROM store_b;\n```",
+        "is_correct_option": 0
+      }
+    ]
+  },
+  {
+    "question_id": "daf89bb0-16d2-40b4-b659-1d09b504421a",
+    "question": "Table: Attendance\n\n| employeeId | name       | checkInTime          |\n|------------|------------|----------------------|\n| 1          | John       | 2023-03-15 09:00:00  |\n| 2          | Alice      | 2023-03-16 09:05:00  |\n| 3          | Mark       | 2023-03-17 09:10:00  |\n| 4          | Tina       | 2023-03-18 09:15:00  |\n| 5          | Emma       | 2023-03-19 09:20:00  |\n| 6          | David      | 2023-03-20 09:25:00  |\n| 7          | Sarah      | 2023-03-21 09:30:00  |\n| 8          | Chris      | 2023-03-22 09:35:00  |\n| 9          | Mike       | 2023-03-23 09:40:00  |\n| 10         | Anna       | 2023-03-24 09:45:00  |\n\nIdentify the error in the query:\n\n```sql \nSELECT name, strftime('%H', checkInTime) AS checkInHour\nFROM Attendance\nWHERE strftime('%M', checkInTime) = '30';```",
+    "content_type": "MARKDOWN",
+    "issue": "EXAMPLE 3: Correct Query Asked to Identify an Error \u2014 The question asks students to 'identify the error' but the query is actually correct. The WHERE clause correctly filters for minutes = '30' and the SELECT clause correctly extracts the hour. No rows in the sample data match the WHERE condition, but this is a valid query with no syntax or logical error. This misleads students by asking them to find an error that doesn't exist.",
+    "fix": "Introduce an actual error into the query. A realistic error: the WHERE clause filters by minute = '30', but no employee in the sample data checked in at the 30th minute (they checked in at 00, 05, 10, 15, 20, 25, 30, 35, 40, 45 \u2014 so Sarah did check in at :30). Instead, introduce a semantic error such as selecting a non-aggregated column alongside grouped data without GROUP BY, or use an invalid strftime format code. Alternatively, reframe the question to ask 'What will this query return?' instead of asking to identify an error.",
+    "updated_question": "Table: Attendance\n\n| employeeId | name       | checkInTime          |\n|------------|------------|----------------------|\n| 1          | John       | 2023-03-15 09:00:00  |\n| 2          | Alice      | 2023-03-16 09:05:00  |\n| 3          | Mark       | 2023-03-17 09:10:00  |\n| 4          | Tina       | 2023-03-18 09:15:00  |\n| 5          | Emma       | 2023-03-19 09:20:00  |\n| 6          | David      | 2023-03-20 09:25:00  |\n| 7          | Sarah      | 2023-03-21 09:30:00  |\n| 8          | Chris      | 2023-03-22 09:35:00  |\n| 9          | Mike       | 2023-03-23 09:40:00  |\n| 10         | Anna       | 2023-03-24 09:45:00  |\n\nWhat will the following query return?\n\n```sql \nSELECT name, strftime('%H', checkInTime) AS checkInHour\nFROM Attendance\nWHERE strftime('%M', checkInTime) = '30';```",
+    "updated_options": [
+      {
+        "option_content": "One row: Sarah with checkInHour = '09'",
+        "is_correct_option": 1
+      },
+      {
+        "option_content": "All 10 rows, each with their respective check-in hour",
+        "is_correct_option": 0
+      },
+      {
+        "option_content": "No rows; the query contains a syntax error",
+        "is_correct_option": 0
+      },
+      {
+        "option_content": "All rows where the check-in minute is less than 30",
         "is_correct_option": 0
       }
     ]
