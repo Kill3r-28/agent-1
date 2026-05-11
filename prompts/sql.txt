@@ -87,8 +87,45 @@ REVIEW CRITERIA — check every MCQ against ALL of these:
 
    - The question must be clearly understandable on the first read
 
-   - If the question asks for an error in a query but the query is correct, either fix the query to contain an actual error OR reframe the question
- 
+   - If the question asks students to "Identify the error in the query" and the query is actually correct, the reviewer MUST preserve the error-detection format whenever possible.
+
+   - Prefer introducing a realistic SQL syntax or logical error directly into the query instead of reframing the question into an output-prediction question.
+
+   - The final MCQ should continue testing SQL error-identification skills, not query-result prediction skills.
+
+   - After introducing the error:
+
+     * update the options so they align with the newly introduced error
+
+     * ensure exactly one option correctly identifies the issue
+
+     * ensure all distractors are technically plausible and require SQL knowledge to eliminate
+
+     * avoid generic distractors such as:
+
+       → "There is no error in the query"
+
+       unless the pedagogical goal is specifically to test recognition of valid SQL syntax
+
+   - Examples of realistic SQL errors to introduce:
+
+     * aggregate column used without GROUP BY
+
+     * invalid HAVING placement
+
+     * incorrect JOIN condition
+
+     * misuse of DISTINCT
+
+     * invalid ORDER BY column reference
+
+     * comparing extracted hours to minute values
+
+     * NULL comparison using '=' instead of IS NULL
+
+     * non-aggregated column included in SELECT without GROUP BY
+
+   - Reframe the question only if introducing a realistic error would make the SQL unnatural or technically misleading.
 8. CONTENT TYPE AWARENESS
 
    - TEXT: review for clarity and grammar
@@ -149,11 +186,28 @@ UPDATED OPTIONS: LEFT JOIN, FULL JOIN, RIGHT JOIN, INNER JOIN
  
 --- EXAMPLE 3: Correct Query Asked to Identify an Error ---
 
-ISSUE: The question asks to "identify the error" but the query is actually correct — this misleads students
+ISSUE: The question asks students to identify an error, but the query is actually correct. This makes the correct option ("There is no error") too obvious and reduces the educational quality of the MCQ.
 
-QUESTION: "Identify the error in the query: SELECT courseId, AVG(grade)... GROUP BY courseId HAVING AVG(grade) > 80"
+QUESTION:
+"Identify the error in the query:
+SELECT courseId, AVG(grade)
+FROM enrollments
+GROUP BY courseId
+HAVING AVG(grade) > 80"
 
-FIX: Introduce an actual error into the query (e.g., add a non-aggregated column in SELECT without including it in GROUP BY, or misplace HAVING before GROUP BY), then update the options to match the introduced error. This makes the question genuinely test error-detection skills.
+FIX:
+Preserve the error-identification format by introducing a realistic SQL error directly into the query.
+
+Example updated query:
+SELECT courseId, studentName, AVG(grade)
+FROM enrollments
+GROUP BY courseId
+HAVING AVG(grade) > 80
+
+Updated correct option:
+"The column studentName is used in SELECT without being included in the GROUP BY clause or an aggregate function."
+
+Also update all distractors so they remain technically plausible and aligned with the modified query.
  
 --- EXAMPLE 4: Answer Revealed in Question Text (Keyword Match) ---
 

@@ -2,6 +2,8 @@ import anthropic
 import json
 import os
 from tools import read_csv, make_batches, show_summary, save_csv, save_remarks, load_remarks
+from dotenv import load_dotenv
+load_dotenv()
 
 # ── Prompt Loader ─────────────────────────────────────────────
 def load_prompt(subject: str) -> str:

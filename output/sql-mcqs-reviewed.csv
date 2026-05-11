@@ -1,5 +1,5 @@
 Question ID,Question Content,Options Data
-c631a78dd51d4e11be6d0d050a2cfb31,"In SQLite, which command is used to display the structure of an existing table?","[{""option_content"": ""DESCRIBE table_name;"", ""is_correct_option"": 0}, {""option_content"": ""PRAGMA table_info(table_name);"", ""is_correct_option"": 1}, {""option_content"": ""EXPLAIN QUERY PLAN FROM table_name;"", ""is_correct_option"": 0}, {""option_content"": ""SHOW COLUMNS FROM table_name;"", ""is_correct_option"": 0}]"
+c631a78dd51d4e11be6d0d050a2cfb31,What command is used to display the structure of an existing table in SQL?,"[{""option_content"": ""DESCRIBE table_name;"", ""is_correct_option"": 1}, {""option_content"": ""SHOW TABLE STRUCTURE table_name;"", ""is_correct_option"": 0}, {""option_content"": ""SELECT * FROM table_name;"", ""is_correct_option"": 0}, {""option_content"": ""EXPLAIN table_name;"", ""is_correct_option"": 0}]"
 c5d83100741448f49558c0212d239a1f,"Given the following table 'subscriptions', identify the error in the query that attempts to list all active subscriptions paginated to show 5 per page:
 
 Table: subscriptions
@@ -30,7 +30,7 @@ c5c3197428cd4391ae6ce71e98594370,"What is the result of the following query if t
 UPDATE employees 
 SET Salary = Salary * 1.05 
 WHERE Department = 'Engineering';```","[{""option_content"":""The query will execute and update all employees' salaries by 5%."",""is_correct_option"":0},{""option_content"":""The query will not execute and will return an error message."",""is_correct_option"":1},{""option_content"":""The query will update the salaries of employees in the Engineering department by 5%."",""is_correct_option"":0},{""option_content"":""The query will execute but no salaries will be updated."",""is_correct_option"":0}]"
-c5c0d272851047d9adaa522c46a41796,Which SQL query will help to find the common products sold in both the store_a and store_b tables?,"[{""option_content"": ""SELECT * FROM store_a INTERSECT SELECT * FROM store_b;"", ""is_correct_option"": 1}, {""option_content"": ""SELECT DISTINCT store_a.* FROM store_a LEFT JOIN store_b ON store_a.product_id = store_b.product_id;"", ""is_correct_option"": 0}, {""option_content"": ""SELECT * FROM store_a WHERE product_id IN (SELECT product_id FROM store_b);"", ""is_correct_option"": 0}, {""option_content"": ""SELECT * FROM store_a UNION SELECT * FROM store_b;"", ""is_correct_option"": 0}]"
+c5c0d272851047d9adaa522c46a41796,Which SQL query will help to find the common products sold in both the store_a and store_b tables?,"[{""option_content"": ""```sql\nSELECT * FROM store_a \nINTERSECT \nSELECT * FROM store_b;\n```"", ""is_correct_option"": 1}, {""option_content"": ""```sql\nSELECT * FROM store_a \nJOIN store_b \nON store_a.product_id = store_b.product_id;\n```"", ""is_correct_option"": 0}, {""option_content"": ""```sql\nSELECT * FROM store_a \nWHERE product_id IN (SELECT product_id FROM store_b);\n```"", ""is_correct_option"": 0}, {""option_content"": ""```sql\nSELECT * FROM store_a \nUNION \nSELECT * FROM store_b;\n```"", ""is_correct_option"": 0}]"
 c5721eb68a00417ba679e9d9b3fa73a3,"Table: Transactions
 
 | transactionId | accountId | amount | transactionDate |
@@ -49,3 +49,24 @@ FROM Transactions
 WHERE amount > 0
 GROUP BY accountId;```","[{""option_content"":""The query groups all rows by `accountId` and returns the total `amount` for each account, including rows where `amount <= 0`."",""is_correct_option"":0},{""option_content"":""The query returns a running total of `amount` for each row where `amount > 0`, without any grouping."",""is_correct_option"":0},{""option_content"":""The query filters out rows where `amount <= 0` and returns a single total of all remaining amounts, without separating by account."",""is_correct_option"":0},{""option_content"":""The query filters out rows where `amount <= 0`, then groups the remaining rows by `accountId`, and returns the total `amount` for each account."",""is_correct_option"":1}]"
 c53e8336b3244b3c8f855ca3b5980538,What is a requirement when using columns in a `SELECT` statement with `GROUP BY`?,"[{""option_content"":""All columns in the SELECT clause must be in the GROUP BY clause or used in aggregate functions."",""is_correct_option"":1},{""option_content"":""GROUP BY must always be followed by ORDER BY."",""is_correct_option"":0},{""option_content"":""You cannot use aggregate functions with GROUP BY."",""is_correct_option"":0},{""option_content"":""Columns in the GROUP BY clause must be primary keys."",""is_correct_option"":0}]"
+daf89bb0-16d2-40b4-b659-1d09b504421a,"Table: Attendance
+
+| employeeId | name       | checkInTime          |
+|------------|------------|----------------------|
+| 1          | John       | 2023-03-15 09:00:00  |
+| 2          | Alice      | 2023-03-16 09:05:00  |
+| 3          | Mark       | 2023-03-17 09:10:00  |
+| 4          | Tina       | 2023-03-18 09:15:00  |
+| 5          | Emma       | 2023-03-19 09:20:00  |
+| 6          | David      | 2023-03-20 09:25:00  |
+| 7          | Sarah      | 2023-03-21 09:30:00  |
+| 8          | Chris      | 2023-03-22 09:35:00  |
+| 9          | Mike       | 2023-03-23 09:40:00  |
+| 10         | Anna       | 2023-03-24 09:45:00  |
+
+What will the following query return?
+
+```sql 
+SELECT name, strftime('%H', checkInTime) AS checkInHour
+FROM Attendance
+WHERE strftime('%M', checkInTime) = '30';```","[{""option_content"": ""One row: Sarah with checkInHour = '09'"", ""is_correct_option"": 1}, {""option_content"": ""All 10 rows, each with their respective check-in hour"", ""is_correct_option"": 0}, {""option_content"": ""No rows; the query contains a syntax error"", ""is_correct_option"": 0}, {""option_content"": ""All rows where the check-in minute is less than 30"", ""is_correct_option"": 0}]"

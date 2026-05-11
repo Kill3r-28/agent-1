@@ -49,3 +49,41 @@ FROM Transactions
 WHERE amount > 0
 GROUP BY accountId;```","[{""option_content"":""The query groups all rows by `accountId` and returns the total `amount` for each account, including rows where `amount <= 0`."",""is_correct_option"":0},{""option_content"":""The query returns a running total of `amount` for each row where `amount > 0`, without any grouping."",""is_correct_option"":0},{""option_content"":""The query filters out rows where `amount <= 0` and returns a single total of all remaining amounts, without separating by account."",""is_correct_option"":0},{""option_content"":""The query filters out rows where `amount <= 0`, then groups the remaining rows by `accountId`, and returns the total `amount` for each account."",""is_correct_option"":1}]"
 c53e8336b3244b3c8f855ca3b5980538,What is a requirement when using columns in a `SELECT` statement with `GROUP BY`?,"[{""option_content"":""All columns in the SELECT clause must be in the GROUP BY clause or used in aggregate functions."",""is_correct_option"":1},{""option_content"":""GROUP BY must always be followed by ORDER BY."",""is_correct_option"":0},{""option_content"":""You cannot use aggregate functions with GROUP BY."",""is_correct_option"":0},{""option_content"":""Columns in the GROUP BY clause must be primary keys."",""is_correct_option"":0}]"
+daf89bb0-16d2-40b4-b659-1d09b504421a,"Table: Attendance
+
+| employeeId | name       | checkInTime          |
+|------------|------------|----------------------|
+| 1          | John       | 2023-03-15 09:00:00  |
+| 2          | Alice      | 2023-03-16 09:05:00  |
+| 3          | Mark       | 2023-03-17 09:10:00  |
+| 4          | Tina       | 2023-03-18 09:15:00  |
+| 5          | Emma       | 2023-03-19 09:20:00  |
+| 6          | David      | 2023-03-20 09:25:00  |
+| 7          | Sarah      | 2023-03-21 09:30:00  |
+| 8          | Chris      | 2023-03-22 09:35:00  |
+| 9          | Mike       | 2023-03-23 09:40:00  |
+| 10         | Anna       | 2023-03-24 09:45:00  |
+
+Identify the error in the query:
+
+```sql 
+SELECT name, strftime('%H', checkInTime) AS checkInHour
+FROM Attendance
+WHERE strftime('%M', checkInTime) = '30';```","[
+  {
+    ""option_content"":""There is no error; the query correctly extracts the check-in hour for employees who checked in at the 30th minute."",
+    ""is_correct_option"":1
+  },
+  {
+    ""option_content"":""The comparison in the WHERE clause should use 'LIKE' instead of '='."",
+    ""is_correct_option"":0
+  },
+  {
+    ""option_content"":""The table name 'Employee Attendance' should not contain spaces."",
+    ""is_correct_option"":0
+  },
+  {
+    ""option_content"":""The strftime function should use '%M' to extract minutes, not hours."",
+    ""is_correct_option"":0
+  }
+]"
